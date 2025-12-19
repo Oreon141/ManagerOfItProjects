@@ -1,0 +1,257 @@
+﻿<Page x:Class="ManagerOfItProjects.Pages.TasksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Page.Resources>
+        <!-- Стиль для раскрашивания текста статуса задачи -->
+        <Style x:Key="StatusColorStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Style.Triggers>
+                <!-- Статус "не начат" - красный цвет -->
+                <DataTrigger Binding="{Binding Statuses.StatusName}" Value="не начат">
+                    <Setter Property="Foreground" Value="#f87171"/>
+                </DataTrigger>
+
+                <!-- Статус "в процессе" - синий цвет -->
+                <DataTrigger Binding="{Binding Statuses.StatusName}" Value="в процессе">
+                    <Setter Property="Foreground" Value="#60a5fa"/>
+                </DataTrigger>
+
+                <!-- Статус "выполнен" - зеленый цвет -->
+                <DataTrigger Binding="{Binding Statuses.StatusName}" Value="выполнен">
+                    <Setter Property="Foreground" Value="#34d399"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя панель с заголовком и кнопками -->
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 25">
+                <TextBlock x:Name="TitleBlock"
+                           Text="Задачи проекта"
+                           FontSize="34"
+                           FontWeight="Bold"
+                           Foreground="#1e293b"
+                           VerticalAlignment="Center"/>
+
+                <Button Content="← Назад"
+                        Height="48"
+                        Padding="30 0"
+                        Margin="25 0 0 0"
+                        Background="#475569"
+                        Foreground="White"
+                        FontSize="20"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="Back_Click"/>
+
+                <Button Content="+ Новая задача"
+                        x:Name="CreateTaskBtn"
+                        Height="48"
+                        Padding="28 0"
+                        Margin="25 0 0 0"
+                        Background="{StaticResource PrimaryBrush}"
+                        Foreground="White"
+                        FontSize="20"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="CreateTask_Click"/>
+            </StackPanel>
+
+            <!-- Основная карточка с таблицей задач -->
+            <Border Grid.Row="1"
+                    Style="{StaticResource Card}"
+                    Padding="25">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Панель фильтров -->
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+                        <!-- Поиск по названию и описанию -->
+                        <StackPanel Margin="0 0 25 0">
+                            <TextBlock Text="Поиск"
+                                       FontSize="20"
+                                       Foreground="#475569"/>
+                            <TextBox x:Name="SearchBox"
+                                     Width="250"
+                                     Height="42"
+                                     FontSize="18"
+                                     Padding="10"
+                                     Background="#f1f5f9"
+                                     BorderBrush="#cbd5e1"
+                                     BorderThickness="1"
+                                     TextChanged="Filter_Changed"/>
+                        </StackPanel>
+
+                        <!-- Фильтр по статусу -->
+                        <StackPanel Margin="0 0 25 0">
+                            <TextBlock Text="Статус"
+                                       FontSize="20"
+                                       Foreground="#475569"/>
+                            <ComboBox x:Name="StatusFilter"
+                                      VerticalContentAlignment="Center"
+                                      Cursor="Hand"
+                                      Width="200"
+                                      Height="42"
+                                      FontSize="18"
+                                      Background="#f1f5f9"
+                                      BorderBrush="#cbd5e1"
+                                      BorderThickness="1"
+                                      DisplayMemberPath="StatusName"
+                                      SelectionChanged="Filter_Changed"/>
+                        </StackPanel>
+
+                        <!-- Кнопка сброса фильтров -->
+                        <Button Content="Сбросить"
+                                Height="42"
+                                Padding="20 0"
+                                Margin="0 25 0 0"
+                                Background="#64748b"
+                                Foreground="White"
+                                FontSize="18"
+                                BorderThickness="0"
+                                Click="ResetFilters_Click"/>
+                    </StackPanel>
+
+                    <!-- Таблица задач -->
+                    <DataGrid x:Name="TasksGrid"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              FontSize="18"
+                              RowHeight="42"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              AlternatingRowBackground="#eef3ff"
+                              Cursor="Hand"
+                              GridLinesVisibility="None"
+                              Margin="0 15 0 0">
+
+                        <DataGrid.Resources>
+                            <!-- Стиль заголовков колонок -->
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#e5ebff"/>
+                                <Setter Property="Foreground" Value="#334155"/>
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="Padding" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+
+                            <!-- Стиль строк таблицы -->
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Foreground" Value="#1e293b"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <!-- Название задачи -->
+                            <DataGridTextColumn Header="Название"
+                                                Binding="{Binding TaskName}"
+                                                Width="2*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="TextTrimming" Value="None"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Описание задачи -->
+                            <DataGridTextColumn Header="Описание"
+                                                Binding="{Binding TaskDescription}"
+                                                Width="3*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="TextTrimming" Value="None"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Статус с цветной подсветкой -->
+                            <DataGridTemplateColumn Header="Статус" Width="160">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Statuses.StatusName}"
+                                                   Style="{StaticResource StatusColorStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!-- Исполнитель -->
+                            <DataGridTextColumn Header="Исполнитель"
+                                                Binding="{Binding Users.Login}"
+                                                Width="160">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="TextTrimming" Value="None"/>
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <!-- Колонка с действиями -->
+                            <DataGridTemplateColumn Header="Действия" Width="180">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" 
+                                                    HorizontalAlignment="Center">
+                                            <Button Content="Открыть"
+                                                    Width="70"
+                                                    Height="34"
+                                                    Background="#2563eb"
+                                                    Foreground="White"
+                                                    BorderThickness="0"
+                                                    Margin="0 0 6 0"
+                                                    Tag="{Binding TaskID}"
+                                                    Click="OpenTask_Click"/>
+
+                                            <Button Content="✎"
+                                                    Width="38"
+                                                    Height="34"
+                                                    Background="#475569"
+                                                    Foreground="White"
+                                                    BorderThickness="0"
+                                                    Margin="0 0 6 0"
+                                                    Tag="{Binding TaskID}"
+                                                    Click="EditTask_Click"/>
+
+                                            <Button Content="🗑"
+                                                    Width="38"
+                                                    Height="34"
+                                                    Background="#dc2626"
+                                                    Foreground="White"
+                                                    BorderThickness="0"
+                                                    Tag="{Binding TaskID}"
+                                                    Click="DeleteTask_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

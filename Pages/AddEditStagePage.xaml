@@ -1,0 +1,127 @@
+﻿<Page x:Class="ManagerOfItProjects.Pages.AddEditStagePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{StaticResource BackgroundBrush}"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Кнопка возврата на предыдущую страницу -->
+        <Button Grid.Row="0"
+                Content="← Назад"
+                Width="120"
+                Height="40"
+                FontSize="16"
+                Background="#475569"
+                Foreground="White"
+                Margin="0 0 0 10"
+                HorizontalAlignment="Left"
+                Click="BackButton_Click"/>
+
+        <!-- Заголовок страницы -->
+        <TextBlock Grid.Row="1"
+                   x:Name="HeaderText"
+                   Text="Редактирование этапа"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#1e293b"
+                   Margin="0 0 0 20"/>
+
+        <!-- Основная карточка с полями формы -->
+        <Border Grid.Row="2"
+                Style="{StaticResource Card}"
+                Padding="25">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+
+                    <!-- Номер этапа -->
+                    <TextBlock Text="Номер этапа" FontSize="18"/>
+                    <TextBox x:Name="StageNumberBox"
+                             Height="40"
+                             FontSize="16"
+                             Margin="0 0 0 15"
+                             Padding="8"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Название этапа -->
+                    <TextBlock Text="Название этапа" FontSize="18"/>
+                    <TextBox x:Name="StageNameBox"
+                             Height="40"
+                             FontSize="16"
+                             Margin="0 0 0 15"
+                             Padding="8"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Описание этапа -->
+                    <TextBlock Text="Описание" FontSize="18"/>
+                    <TextBox x:Name="StageDescriptionBox"
+                             Height="90"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             FontSize="16"
+                             Margin="0 0 0 15"
+                             Padding="8"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Планируемые даты начала и окончания -->
+                    <TextBlock Text="Планируемое начало" FontSize="18"/>
+                    <DatePicker x:Name="PlannedStartBox"
+                                Height="40"
+                                Margin="0 0 0 15"/>
+
+                    <TextBlock Text="Планируемый конец" FontSize="18"/>
+                    <DatePicker x:Name="PlannedEndBox"
+                                Height="40"
+                                Margin="0 0 0 15"/>
+
+                    <!-- Статус этапа -->
+                    <TextBlock Text="Статус" FontSize="18"/>
+                    <ComboBox x:Name="StatusBox"
+                              VerticalContentAlignment="Center"
+                              Cursor="Hand"
+                              Height="40"
+                              FontSize="16"
+                              Margin="0 0 0 25"
+                              DisplayMemberPath="StatusName"
+                              Background="#f8fafc"
+                              BorderBrush="#cbd5e1"/>
+
+                    <!-- Кнопки действий -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button x:Name="SaveButton"
+                                Content="Сохранить"
+                                Width="140"
+                                Height="45"
+                                FontSize="18"
+                                Background="#16a34a"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Click="SaveButton_Click"/>
+
+                        <Button x:Name="DeleteButton"
+                                Content="Удалить"
+                                Width="140"
+                                Height="45"
+                                Margin="15 0 0 0"
+                                FontSize="18"
+                                Background="#dc2626"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Click="DeleteButton_Click"
+                                Visibility="Collapsed"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+    </Grid>
+</Page>

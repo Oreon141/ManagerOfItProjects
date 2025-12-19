@@ -1,0 +1,101 @@
+﻿<Window x:Class="ManagerOfItProjects.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManagerOfItProjects.Windows"
+        mc:Ignorable="d"
+        Title="Авторизация"
+        Height="420" 
+        Width="420"
+        WindowStartupLocation="CenterScreen"
+        Background="#e8edff"
+        ResizeMode="NoResize">
+
+    <Grid>
+        <Border CornerRadius="18"
+                Background="#ffffff"
+                Padding="30"
+                Width="340"
+                Height="320"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <StackPanel>
+                <!-- Заголовок формы -->
+                <TextBlock Text="Добро пожаловать"
+                           FontWeight="SemiBold"
+                           FontSize="22"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 12"/>
+
+                <!-- Поле для ввода логина с плейсхолдером -->
+                <Grid Margin="0 6">
+                    <TextBox x:Name="LoginBox"
+                             Height="42"
+                             FontSize="14"
+                             Padding="10"
+                             VerticalContentAlignment="Center"
+                             TextChanged="LoginBox_TextChanged"
+                             KeyDown="LoginBox_KeyDown"/>
+
+                    <TextBlock Text="Логин"
+                               x:Name="LoginPlaceHolder"
+                               Margin="14,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="#9aa4bf"
+                               FontSize="14"
+                               IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=LoginBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=LoginBox}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=LoginBox}" Value="1">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=LoginBox}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <!-- Поле для ввода пароля с плейсхолдером -->
+                <Grid Margin="0 6">
+                    <PasswordBox x:Name="PasswordBox"
+                                 Height="42"
+                                 FontSize="14"
+                                 Padding="10"
+                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                 KeyDown="PasswordBox_KeyDown"/>
+
+                    <TextBlock x:Name="PasswordPlaceholder"
+                               Text="Пароль"
+                               Margin="14,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="#9aa4bf"
+                               FontSize="14"
+                               IsHitTestVisible="False"/>
+                </Grid>
+
+                <!-- Кнопка входа -->
+                <Button Content="Войти"
+                        Height="42"
+                        Margin="0 20 0 0"
+                        Background="#1145bb"
+                        Foreground="White"
+                        BorderThickness="0"
+                        FontSize="16"
+                        Cursor="Hand"
+                        Click="Login_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

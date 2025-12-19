@@ -1,0 +1,136 @@
+﻿<Window x:Class="ManagerOfItProjects.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="IT Projects Manager"
+        Height="720"
+        Width="1350"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="720"
+        MinWidth="1350">
+
+    <Grid>
+        <!-- Структура сетки -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель заголовка -->
+        <Border Grid.Row="0"
+                Background="{StaticResource WhiteBrush}"
+                Padding="24"
+                BorderBrush="#e2e8f0"
+                BorderThickness="0 0 0 1">
+            <DockPanel LastChildFill="True">
+                <!-- Логотип приложения -->
+                <Image Source="/Resources/logo.png"
+                       Width="56"
+                       Height="56"
+                       Margin="0 0 16 0"
+                       DockPanel.Dock="Left"/>
+
+                <!-- Название приложения -->
+                <TextBlock Text="Менеджер IT-проектов"
+                           VerticalAlignment="Center"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="#1e293b"/>
+
+                <!-- Информация о текущем пользователе -->
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <TextBlock x:Name="UserInfoText"
+                               Text="Не авторизован"
+                               FontSize="16"
+                               Foreground="#475569"
+                               Margin="0 0 20 0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Основное содержимое -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левая панель навигации -->
+            <Border Background="{StaticResource WhiteBrush}"
+                    CornerRadius="0 20 20 0"
+                    Padding="20"
+                    BorderBrush="#e2e8f0"
+                    BorderThickness="0 0 1 0">
+                <StackPanel VerticalAlignment="Stretch">
+                    <!-- Кнопка "Прогресс" -->
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📈  Прогресс"
+                            Click="Dashboard_Click"/>
+
+                    <!-- Кнопка "Проекты" -->
+                    <Button x:Name="ProjectsNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📁  Проекты"
+                            Click="Projects_Click"/>
+
+                    <!-- Кнопка "Задачи" -->
+                    <Button x:Name="TasksNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📝  Задачи"
+                            Click="Tasks_Click"/>
+
+                    <!-- Кнопка "Пользователи" -->
+                    <Button x:Name="UsersNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="👥  Пользователи"
+                            Click="Users_Click"/>
+
+                    <!-- Кнопка "Отчёты" -->
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📊  Отчёты"
+                            Click="Reports_Click"/>
+                    
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📅  Календарь"
+                            Click="Calendar_Click"/>
+
+
+                    <!-- Разделитель -->
+                    <Separator Margin="10 20"/>
+
+                    <!-- Кнопка "Выход" -->
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="🚪  Выход"
+                            Click="Logout_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Область отображения страниц -->
+            <Border Grid.Column="1"
+                    Margin="24"
+                    Background="Transparent">
+                <Frame x:Name="MainFrame"
+                       NavigationUIVisibility="Hidden"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

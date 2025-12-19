@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fa2e5492ff06454aba96c17e7c880f79" Name="Diagram1">
+        <EntityTypeShape EntityType="ITProjectsManagerModel.ProjectResources" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.ProjectRole" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.Projects" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.ProjectStages" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.ProjectUsers" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.Reports" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.Statuses" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.TaskComments" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.Tasks" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.UserRoles" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITProjectsManagerModel.Users" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectResources_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectUsers_ProjectRole" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Projects_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectStages_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectUsers_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Reports_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Tasks_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectStages_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Tasks_ProjectStages" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_ProjectUsers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Reports_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Tasks_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_TaskComments_Tasks" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_TaskComments_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Tasks_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Tasks_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ITProjectsManagerModel.FK_Users_UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
