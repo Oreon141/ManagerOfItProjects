@@ -1,4 +1,5 @@
 ﻿using ManagerOfItProjects.DataBase;
+using ManagerOfItProjects.Services;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace ManagerOfItProjects.Pages
     {
         ITProjectsManagerEntities db = ITProjectsManagerEntities.GetContext();
         int projectId;
-        int currentUserId = 1;
+        int currentUserId = CurrentUser.UserID;
 
         public CreateTaskPage(int id)
         {
@@ -91,6 +92,11 @@ namespace ManagerOfItProjects.Pages
 
                 db.Tasks.Add(task);
                 db.SaveChanges();
+
+                if (task.AssignedTo.HasValue)
+                {
+                    NotificationService.CreateNotification(task.AssignedTo.Value, "Новая задача", $"Вам назначена новая задача: {task.TaskName}", "TaskAssigned", task.TaskID);
+                }
 
                 MessageBox.Show("Задача успешно создана!",
                     "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
