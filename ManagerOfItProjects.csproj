@@ -149,6 +149,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CurrentUser.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Pages\AddEditStagePage.xaml.cs">
       <DependentUpon>AddEditStagePage.xaml</DependentUpon>
     </Compile>
@@ -169,6 +170,12 @@
     </Compile>
     <Compile Include="Pages\EditTaskPage.xaml.cs">
       <DependentUpon>EditTaskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ProgressPage.xaml.cs">
       <DependentUpon>ProgressPage.xaml</DependentUpon>
@@ -275,6 +282,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ChatPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\CreateProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +299,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\EditTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\NotificationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,13 +1,17 @@
 ﻿using ManagerOfItProjects.Models;
 using ManagerOfItProjects.Pages;
 using ManagerOfItProjects.Windows;
+using ManagerOfItProjects.Services;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace ManagerOfItProjects
 {
     public partial class MainWindow : Window
     {
+        private readonly DispatcherTimer notificationsTimer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +28,7 @@ namespace ManagerOfItProjects
             }
 
             ConfigureNavigationByRole();
+            InitializeNotificationsCounter();
             LoadDefaultPage();
         }
 
@@ -38,6 +43,21 @@ namespace ManagerOfItProjects
                 Visibility.Visible : Visibility.Collapsed;
 
             this.Title = $"IT Projects Manager - {CurrentUser.Login} ({CurrentUser.Role})";
+        }
+
+
+        private void InitializeNotificationsCounter()
+        {
+            notificationsTimer.Interval = TimeSpan.FromSeconds(10);
+            notificationsTimer.Tick += (s, e) => UpdateNotificationsCounter();
+            notificationsTimer.Start();
+            UpdateNotificationsCounter();
+        }
+
+        private void UpdateNotificationsCounter()
+        {
+            int unread = NotificationService.GetUnreadCount(CurrentUser.UserID);
+            NotificationsNavButton.Content = unread > 0 ? $"🔔  Уведомления ({unread})" : "🔔  Уведомления";
         }
 
         /// Загрузка страницы по умолчанию в зависимости от роли пользователя
@@ -68,6 +88,18 @@ namespace ManagerOfItProjects
         private void Tasks_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Pages.AllTasksPage());
+        }
+
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new NotificationsPage());
+            UpdateNotificationsCounter();
+        }
+
+        private void Chat_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ChatPage());
         }
 
         /// Обработчик нажатия кнопки "Пользователи"

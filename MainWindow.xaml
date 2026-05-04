@@ -90,6 +90,20 @@
                             Content="📝  Задачи"
                             Click="Tasks_Click"/>
 
+                    <Button x:Name="NotificationsNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="🔔  Уведомления"
+                            Click="Notifications_Click"/>
+
+                    <Button x:Name="ChatNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="💬  Чат"
+                            Click="Chat_Click"/>
+
                     <!-- Кнопка "Пользователи" -->
                     <Button x:Name="UsersNavButton"
                             Style="{StaticResource NavButton}"

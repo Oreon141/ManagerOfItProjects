@@ -1,4 +1,5 @@
 ﻿using ManagerOfItProjects.DataBase;
+using ManagerOfItProjects.Services;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,6 +80,7 @@ namespace ManagerOfItProjects.Pages
 
             try
             {
+                int previousStatusId = task.StatusID;
                 task.TaskName = TaskNameBox.Text.Trim();
                 task.TaskDescription = DescriptionBox.Text.Trim();
 
@@ -92,6 +94,11 @@ namespace ManagerOfItProjects.Pages
                 task.Priority = PriorityBox.SelectedItem?.ToString();
 
                 db.SaveChanges();
+
+                if (previousStatusId != task.StatusID && task.AssignedTo.HasValue)
+                {
+                    NotificationService.CreateNotification(task.AssignedTo.Value, "Изменение статуса", $"Статус задачи изменён на {selectedStatus?.StatusName}", "StatusChanged", task.TaskID);
+                }
 
                 MessageBox.Show("Изменения успешно сохранены!",
                     "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
